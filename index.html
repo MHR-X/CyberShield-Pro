@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberShield Pro - Hacker Portal</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+            font-family: 'Share Tech Mono', monospace;
+        }
+        body {
+            color: #00ff99;   
+            background-color: #000000;
+            direction: rtl;
+            line-height: 1.8;
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+            padding: 0 15px;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: #000000;
+            color: #00ff99;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            text-shadow: 0 0 10px #00ff99;
+            border-bottom: 1px solid #00ff9955;
+        }
+        .logo {
+            float: right;
+            margin-right: 20px;
+            color: #00ff99;
+            font-size: 1.6rem;
+            font-weight: bold;
+            text-shadow: 0 0 10px #00ff99;
+        }
+        .nav-links a {
+            color: #00ff99;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+        }
+        .nav-links a:hover {
+            color: #ff0055;
+            text-shadow: 0 0 10px #ff0055;
+        }
+
+        /* زر القائمة ☰ */
+        .menu-toggle {
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            width: 30px;
+            height: 22px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            z-index: 1100;
+        }
+        .menu-toggle div {
+            width: 100%;
+            height: 4px;
+            background: #00ff99;
+            border-radius: 2px;
+            box-shadow: 0 0 5px #00ff99;
+            transition: all 0.3s ease;
+        }
+
+        /* إخفاء قائمة الروابط افتراضيًا على الموبايل */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: absolute;
+                top: 70px;
+                right: 0;
+                left: 0;
+                background: #000;
+                flex-direction: column;
+                padding: 10px 0;
+                transform: translateY(-100%);
+                transition: transform 0.3s ease;
+                text-align: center;
+            }
+            .nav-links.active {
+                transform: translateY(0);
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            background: #000000;
+            color: #00ff99;
+            padding: 120px 0;
+            text-align: center;
+            animation: glitch 3s infinite;
+            text-shadow: 0 0 5px #00ff99, 0 0 10px #00ff99;
+            border-top: 1px solid #00ff9922;
+            border-bottom: 1px solid #00ff9922;
+        }
+        .hero h2 {
+            font-size: 3.2rem;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        @media (max-width: 500px) {
+            .hero h2 {
+                font-size: 2rem;
+            }
+        }
+        .btn {
+            display: inline-block;
+            background: linear-gradient(to right, #00ff99, #ff0055);
+            color: #000;
+            padding: 14px 28px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px #00ff99aa;
+        }
+        .btn:hover {
+            transform: scale(1.05) rotate(1deg);
+            box-shadow: 0 0 15px #ff0055cc;
+        }
+
+        /* Sections */
+        .section {
+            padding: 80px 0;
+            background: #000000;
+            border-top: 1px dashed #00ff9922;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.2rem;
+            color: #00ff99;
+            text-shadow: 0 0 5px #00ff99;
+        }
+        @media (max-width: 768px) {
+            h2 {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* Cards */
+        .cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            justify-content: center;
+        }
+        .card {
+            background: #0d0d0d;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 10px 20px rgba(0,255,153,0.1);
+            border: 1px solid #00ff9922;
+            width: calc(25% - 25px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+        @media (max-width: 992px) {
+            .card {
+                width: calc(33% - 25px);
+            }
+        }
+        @media (max-width: 768px) {
+            .card {
+                width: calc(50% - 25px);
+            }
+        }
+        @media (max-width: 480px) {
+            .card {
+                width: 100%;
+            }
+        }
+        .card:hover {
+            transform: translateY(-8px) rotate(0.5deg);
+            box-shadow: 0 15px 30px rgba(0,255,153,0.2);
+            border-color: #00ff9988;
+        }
+        .card h3 {
+            margin-bottom: 10px;
+            color: #00ff99;
+            font-size: 1.3rem;
+        }
+        .card p {
+            color: #aaa;
+        }
+
+        /* Icon Placeholder */
+        .icon-placeholder {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #00ff99;
+            text-shadow: 0 0 5px #00ff99;
+        }
+
+        /* Tools List */
+        .tool-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+        .tool-list li {
+            color: #00ff99;
+            margin: 10px 0;
+            position: relative;
+            padding-right: 20px;
+        }
+        .tool-list li::before {
+            content: "💻";
+            position: absolute;
+            right: 0;
+            font-size: 1.2rem;
+        }
+
+        /* Courses */
+        .courses {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            justify-content: center;
+        }
+        .course-card {
+            background: #0d0d0d;
+            border-radius: 10px;
+            overflow: hidden;
+            width: 100%;
+            max-width: 300px;
+            box-shadow: 0 10px 20px rgba(0,255,153,0.1);
+            border: 1px solid #00ff9922;
+            transition: transform 0.3s ease;
+            text-align: center;
+        }
+        .course-card:hover {
+            transform: scale(1.03);
+            border-color: #00ff9966;
+        }
+        .course-info {
+            padding: 15px;
+        }
+        .course-info h3 {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            color: #00ff99;
+        }
+
+        /* Pricing Plans */
+        .pricing {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 25px;
+        }
+        .plan {
+            background: #0d0d0d;
+            border: 2px solid #00ff99;
+            border-radius: 15px;
+            padding: 25px 20px;
+            width: 100%;
+            max-width: 300px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0,255,153,0.1);
+            transition: transform 0.3s ease;
+        }
+        .plan:hover {
+            transform: translateY(-10px);
+            border-color: #ff0055;
+        }
+        .plan h3 {
+            margin-bottom: 10px;
+            color: #00ff99;
+            font-size: 1.4rem;
+        }
+        .price {
+            font-size: 1.6rem;
+            color: #ff0055;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+        .features li {
+            margin: 8px 0;
+            color: #bbb;
+        }
+
+        /* Subscribe Section */
+        .subscribe-section {
+            background: #000000;
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid #00ff9922;
+        }
+        .subscribe-section input {
+            padding: 10px 15px;
+            width: 100%;
+            max-width: 100%;
+            border: 2px solid #00ff99;
+            border-radius: 30px;
+            margin-top: 10px;
+            font-size: 1rem;
+            background: #0a0a0a;
+            color: #00ff99;
+        }
+        .subscribe-section button {
+            padding: 10px 20px;
+            background: linear-gradient(to right, #00ff99, #ff0055);
+            color: #000;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px #00ff99aa;
+            display: block;
+            margin: 15px auto 0;
+        }
+        .subscribe-section button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px #ff0055cc;
+        }
+
+        /* Footer */
+        .footer {
+            background: #000000;
+            color: #444;
+            text-align: center;
+            padding: 15px 0;
+            border-top: 1px solid #111111;
+        }
+
+        /* Animations */
+        @keyframes glitch {
+            0% {text-shadow: 0 0 5px #00ff99;}
+            50% {text-shadow: 0 0 10px #ff0055;}
+            100% {text-shadow: 0 0 5px #00ff99;}
+        }
+        [data-animate] {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+        [data-animate].visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        @media (max-width: 768px) {
+            .hero {
+                padding: 60px 0 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- زر القائمة -->
+<div class="menu-toggle" onclick="toggleNavbar()">
+    <div></div>
+    <div></div>
+    <div></div>
+</div>
+
+<!-- الشريط العلوي -->
+<header class="navbar">
+    <div class="container">
+        <h1 class="logo">💀 CyberHive 🔐</h1>
+        <nav class="nav-links" id="nav-links">
+            <a href="#home">🏠 الرئيسية</a>
+            <a href="#concepts">🧠 المفاهيم</a>
+            <a href="#tools">🛠️ الأدوات</a>
+            <a href="#courses">🎓 الكورسات</a>
+            <a href="#plans">💸 الاشتراكات</a>
+            <a href="contact.html">📡 تواصل</a>
+        </nav>
+    </div>
+</header>
+
+<!-- القسم الرئيسي -->
+<section id="home" class="hero" data-animate>
+    <div class="container hero-content">
+        <h2>مرحبًا بك في CyberHive 🤖</h2>
+        <p>بوابة اختراق مفتوحة للأمن السيبراني. 🌐</p>
+        <a href="#plans" class="btn">🔓 اشترك الآن</a>
+    </div>
+</section>
+
+<!-- مفاهيم الأمن السيبراني -->
+<section id="concepts" class="section" data-animate>
+    <div class="container">
+        <h2>مفاهيم أساسية</h2>
+        <div class="cards">
+            <div class="card" data-animate>
+                <div class="icon-placeholder">钓鱼</div>
+                <h3>التصيد الاحتيالي</h3>
+                <p>خداع المستخدمين عبر رسائل وهمية للحصول على بيانات سرية.</p>
+            </div>
+            <div class="card" data-animate>
+                <div class="icon-placeholder">💣</div>
+                <h3>الفيرسات</h3>
+                <p>برامج ضارة تُصيب الأجهزة بهدف إتلاف البيانات أو سرقتها.</p>
+            </div>
+            <div class="card" data-animate>
+                <div class="icon-placeholder">🕵️‍♂️</div>
+                <h3>الهاكر الأخلاقي</h3>
+                <p>شخص يقوم باختبار الثغرات في الأنظمة لإصلاحها وليس استغلالها.</p>
+            </div>
+            <div class="card" data-animate>
+                <div class="icon-placeholder">🔐</div>
+                <h3>التشفير</h3>
+                <p>تحويل البيانات إلى نصوص مشفرة يصعب قراءتها دون مفتاح.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- أدوات الأمن السيبراني -->
+<section id="tools" class="section dark-bg" data-animate>
+    <div class="container">
+        <h2>أدوات شائعة</h2>
+        <ul class="tool-list">
+            <li>Kali Linux - نظام تشغيل اختراق 📊</li>
+            <li>Metasploit - اختبار ثغرات الأنظمة 🛠️</li>
+            <li>Nmap - فحص المنافذ 🔍</li>
+            <li>Wireshark - Sniffing الشبكة 🌐</li>
+            <li>SQLMap - SQL Injection Detector 💥</li>
+        </ul>
+    </div>
+</section>
+
+<!-- عروض الشركات -->
+<section id="enterprise" class="section dark-bg" data-animate>
+    <div class="container">
+        <h2>عروض الشركات</h2>
+        <div class="cards">
+            <div class="card" data-animate>
+                <div class="icon-placeholder">🏢</div>
+                <h3>الباقة الأساسية</h3>
+                <p>حماية أساسية للشبكات + فريق دعم مخصص.</p>
+            </div>
+            <div class="card" data-animate>
+                <div class="icon-placeholder">🛡️</div>
+                <h3>الباقة المتقدمة</h3>
+                <p>تحليل تهديدات مُستمر + حماية كاملة للبيانات.</p>
+            </div>
+            <div class="card" data-animate>
+                <div class="icon-placeholder">🔐</div>
+                <h3>الباقة الاحترافية</h3>
+                <p>حلول مخصصة + اختبار اختراق شهري + استشارات فورية.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- الكورسات -->
+<section id="courses" class="section" data-animate>
+    <div class="container">
+        <h2>كورسات مقترحة</h2>
+        <div class="courses">
+            <div class="course-card" data-animate>
+                <div class="icon-placeholder">💥</div>
+                <div class="course-info">
+                    <h3>اختبار الاختراق</h3>
+                    <p>تعلم كيفية اختبار أنظمة الأمان واكتشاف الثغرات.</p>
+                </div>
+            </div>
+            <div class="course-card" data-animate>
+                <div class="icon-placeholder">🧟‍♂️</div>
+                <div class="course-info">
+                    <h3>الهاكر الأخلاقي</h3>
+                    <p>أساسيات العمل كـ Ethical Hacker وتحليل الثغرات.</p>
+                </div>
+            </div>
+            <div class="course-card" data-animate>
+                <div class="icon-placeholder">🌐</div>
+                <div class="course-info">
+                    <h3>الأمن السيبراني للمبتدئين</h3>
+                    <p>مقدمة شاملة عن مفاهيم الحماية والأمن الرقمي.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- خطط الدفع -->
+<section id="plans" class="section" data-animate>
+    <div class="container">
+        <h2>خطط الاشتراك</h2>
+        <div class="pricing">
+            <div class="plan" data-animate>
+                <h3>مجاني</h3>
+                <p class="price">0 $</p>
+                <ul class="features">
+                    <li>5 كورسات أساسية</li>
+                    <li>دعم أساسي</li>
+                    <li>شهادة إتمام</li>
+                </ul>
+                <a href="https://wa.me/201146863796?text=مرحبا+أنا+أريد+الاشتراك+في+الخطة:+مجاني" target="_blank" class="btn">📥 اشترك</a>
+            </div>
+            <div class="plan" data-animate>
+                <h3>أساسي</h3>
+                <p class="price">$20 / شهر</p>
+                <ul class="features">
+                    <li>جميع الكورسات</li>
+                    <li>دعم مباشر</li>
+                    <li>شهادة رسمية</li>
+                    <li>مشاريع عملية</li>
+                </ul>
+                <a href="https://wa.me/201146863796?text=مرحبا+أنا+أريد+الاشتراك+في+الخطة:+أساسي" target="_blank" class="btn">📥 اشترك</a>
+            </div>
+            <div class="plan" data-animate>
+                <h3>احترافي</h3>
+                <p class="price">$50 / شهر</p>
+                <ul class="features">
+                    <li>Live Sessions</li>
+                    <li>تدريب عملي</li>
+                    <li>استشارات فردية</li>
+                    <li>شهادة معتمدة</li>
+                </ul>
+                <a href="https://wa.me/201146863796?text=مرحبا+أنا+أريد+الاشتراك+في+الخطة:+احترافي" target="_blank" class="btn">📥 اشترك</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- النشرة البريدية -->
+<section class="subscribe-section" data-animate>
+    <div class="container">
+        <h2>🔔 اشترك في النشرة</h2>
+        <p>احصل على آخر العروض والكورسات!</p>
+        <form onsubmit="event.preventDefault(); alert('شكراً لك!');">
+            <input type="email" placeholder="بريدك الإلكتروني" required />
+            <button type="submit">🚀 إرسال</button>
+        </form>
+    </div>
+</section>
+
+<!-- الفوتر -->
+<footer class="footer" data-animate>
+    <div class="container">
+        <p>&copy; 2025 CyberHive 🔒 جميع الحقوق محفوظة.</p>
+    </div>
+</footer>
+
+<script>
+    function toggleNavbar() {
+        const navLinks = document.getElementById('nav-links');
+        navLinks.classList.toggle('active');
+    }
+
+    const animateOnScroll = () => {
+        const elements = document.querySelectorAll('[data-animate]');
+        const windowHeight = window.innerHeight;
+        elements.forEach(el => {
+            const rect = el.getBoundingClientRect();
+            if (rect.top < windowHeight - 100) {
+                el.classList.add('visible');
+            }
+        });
+    };
+    window.addEventListener('scroll', animateOnScroll);
+    window.addEventListener('load', animateOnScroll);
+</script>
+
+</body>
+</html>
